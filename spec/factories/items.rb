@@ -8,7 +8,6 @@ FactoryBot.define do
     shipping_area_id  {2}
     shipping_days_id  {2}
     price             {Faker::Number.number(digits: 5)}
-    user_id           {2}
     association :user
 
     after(:build) do |message|
