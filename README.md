@@ -47,10 +47,10 @@
 ### Association
 - belongs_to :user
 - belongs_to :item
-- has_one    :ship_address
+- has_one    :address
 
 
-## ship_address テーブル
+## address テーブル
 
 | Column             | Type         | Options     |
 | ------------------ | ------------ | ----------- |
@@ -58,7 +58,7 @@
 | zipcode            | string       | null: false |
 | prefecture_id      | integer      | null: false |
 | city               | string       | null: false |
-| address            | string       | null: false |
+| address_num        | string       | null: false |
 | name_building      | string       |             |
 | phone_number       | string       | null: false |
 
