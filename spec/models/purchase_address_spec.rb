@@ -30,8 +30,8 @@ RSpec.describe PurchaseAddress, type: :model do
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Zipcode is invalid. Include hyphen(-)")
       end
-      it '都道府県を選択しなければ購入できない' do
-        @purchase_address.prefecture_id = ''
+      it '都道府県が初期値「---」のままでは購入できない' do
+        @purchase_address.prefecture_id = 0
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Prefecture can't be blank")
       end
@@ -50,8 +50,18 @@ RSpec.describe PurchaseAddress, type: :model do
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Phone number can't be blank")
       end
-      it '電話番号が10桁以上11桁以内の半角数値でなければ購入できない' do
+      it '電話番号が10桁未満の半角数値では購入できない' do
         @purchase_address.phone_number = '12345'
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Phone number is invalid")
+      end
+      it '電話番号が12桁以上の半角数値では購入できない' do
+        @purchase_address.phone_number = '1234512345123'
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Phone number is invalid")
+      end
+      it '電話番号に半角数値以外が含まれると購入できない' do
+        @purchase_address.phone_number = '090１２３４５６７８'
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Phone number is invalid")
       end
@@ -60,8 +70,17 @@ RSpec.describe PurchaseAddress, type: :model do
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Token can't be blank")
       end
+      it 'user_idが紐づいていないと購入できない' do
+        @purchase_address.user_id = ''
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが紐づいていないと購入できない' do
+        @purchase_address.item_id = ''
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Item can't be blank")
+      end
     end
-
 
 end
 
