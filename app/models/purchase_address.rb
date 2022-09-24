@@ -4,9 +4,9 @@ class PurchaseAddress
 
   with_options presence: true do
     validates :user_id, :item_id, :city, :address_num, :token
-    validates :prefecture_id, numericality: { other_than: 0 , message: "can't be blank"}
-    validates :zipcode, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
-    validates :phone_number, format: {with: /\A[0-9]{10,11}\z/} 
+    validates :prefecture_id, numericality: { other_than: 0 , message: "を入力してください"}
+    validates :zipcode, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "はハイフンを入れた形式で入力してください"}
+    validates :phone_number, format: {with: /\A[0-9]{10,11}\z/, message: "は10桁または11桁の半角数字で入力してください"} 
   end
 
   def save
